@@ -3,3 +3,12 @@
     height: 100vh;
     max-width: 100%;
 }
+
+.homeContainer {
+    background-color: rgb(194, 194, 194);
+    padding: 4vmax;
+    border-radius: 0 0 200px 200px;
+    border-bottom: 200px solid #2E2E2E;
+    position: relative;
+    z-index: 1;
+}
