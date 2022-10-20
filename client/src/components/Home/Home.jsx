@@ -7,7 +7,15 @@ import sunImg from "../../images/sun.jpg";
 import spaceImg from "../../images/space.jpg";
 import { Typography } from "@mui/material";
 import Timelines from "../Timelines/Timelines";
-
+import me from "../../images/yo.jpg";
+import {
+  SiMongodb,
+  SiJavascript,
+  SiTypescript,
+  SiPostgresql,
+  SiHtml5,
+} from "react-icons/si";
+import { FaNodeJs, FaReact, FaCss3 } from "react-icons/fa";
 const Home = () => {
   useEffect(() => {
     const textureLoader = new THREE.TextureLoader();
@@ -52,7 +60,7 @@ const Home = () => {
     scene.add(lightHelper);
     scene.background = spaceTexture;
 
-    const speed = 0.003;
+    const speed = 0.001;
     window.addEventListener("mousemove", (event) => {
       if (event.clientX <= window.innerWidth / 2) {
         moon.rotation.x -= speed;
@@ -89,7 +97,7 @@ const Home = () => {
     const animate = () => {
       requestAnimationFrame(animate);
 
-      moon.rotation.y += 0.005;
+      moon.rotation.y += 0.001;
       sun.rotation.y += 0.001;
 
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -107,6 +115,49 @@ const Home = () => {
           TIMELINE
         </Typography>
         <Timelines timelines={[1, 2, 3, 4, 5, 6]} />
+      </div>
+
+      <div className="skills">
+        <Typography align="center" variant="h3">
+          SKILLS
+        </Typography>
+        <div className="cubeSkills">
+          <div className="cubeFace face1">
+            <img src={me} alt="face1" />
+          </div>
+          <div className="cubeFace face2">
+            <img src={me} alt="face2" />
+          </div>
+          <div className="cubeFace face3">
+            <img src={me} alt="face3" />
+          </div>
+          <div className="cubeFace face4">
+            <img src={me} alt="face4" />
+          </div>
+          <div className="cubeFace face5">
+            <img src={me} alt="face5" />
+          </div>
+          <div className="cubeFace face6">
+            <img src={me} alt="face6" />
+          </div>
+        </div>
+        <div className="sideSkills">
+          <SiHtml5 />
+          <span class="tooltiptext">Tooltip text</span>
+          <FaCss3 />
+          <SiJavascript />
+          <FaReact />
+          <SiMongodb />
+          <SiTypescript />
+          <FaNodeJs />
+          <SiPostgresql />
+        </div>
+      </div>
+
+      <div className="projects">
+        <Typography variant="h3" align="center">
+          PROJECTS
+        </Typography>
       </div>
     </div>
   );

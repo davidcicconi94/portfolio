@@ -5,8 +5,8 @@ import { FaUserAlt } from "react-icons/fa";
 const Header = () => {
   return (
     <ReactNavbar
-      burgerColor="#A70E0E"
-      burgerColorHover="#6F0303"
+      burgerColor="#4E342E"
+      burgerColorHover="#D7CCC8 "
       navColor1="black"
       navColor2="#2E2E2E"
       nav2justifyContent="space-around"
@@ -24,10 +24,10 @@ const Header = () => {
       link1Size="1.8rem"
       logo={logo}
       logoWidth="12rem"
-      link1ColorHover="#A70E0E"
+      link1ColorHover="#D7CCC8"
       profileIcon={true}
       ProfileIconElement={FaUserAlt}
-      profileIconColorHover="#A70E0E"
+      profileIconColorHover="#D7CCC8"
       link1Padding=".4rem"
     />
   );
