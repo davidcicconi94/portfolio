@@ -14,8 +14,11 @@ import {
   SiTypescript,
   SiPostgresql,
   SiHtml5,
+  SiAngular,
 } from "react-icons/si";
 import { FaNodeJs, FaReact, FaCss3 } from "react-icons/fa";
+import ProjectCard from "../ProjectCard/ProjectCard";
+import ReactTooltip from "react-tooltip";
 const Home = () => {
   useEffect(() => {
     const textureLoader = new THREE.TextureLoader();
@@ -142,15 +145,96 @@ const Home = () => {
           </div>
         </div>
         <div className="sideSkills">
-          <SiHtml5 />
-          <span class="tooltiptext">Tooltip text</span>
-          <FaCss3 />
-          <SiJavascript />
-          <FaReact />
-          <SiMongodb />
-          <SiTypescript />
-          <FaNodeJs />
-          <SiPostgresql />
+          <SiHtml5 data-tip data-for="html" />
+          <FaCss3 data-tip data-for="css" />
+          <SiJavascript data-tip data-for="javascript" />
+          <SiTypescript data-tip data-for="ts" />
+          <FaReact data-tip data-for="react" />
+          <SiAngular data-tip data-for="angular" />
+          <SiMongodb data-tip data-for="mongo" />
+          <SiPostgresql data-tip data-for="posgre" />
+          <FaNodeJs data-tip data-for="node" />
+
+          <ReactTooltip
+            id="javascript"
+            place="left"
+            effect="solid"
+            backgroundColor="#EDAA09"
+          >
+            Javascript
+          </ReactTooltip>
+
+          <ReactTooltip
+            id="html"
+            place="left"
+            effect="solid"
+            backgroundColor="#EDAA09"
+          >
+            HTML
+          </ReactTooltip>
+
+          <ReactTooltip
+            id="css"
+            place="left"
+            effect="solid"
+            backgroundColor="#EDAA09"
+          >
+            CSS3
+          </ReactTooltip>
+
+          <ReactTooltip
+            id="react"
+            place="left"
+            effect="solid"
+            backgroundColor="#EDAA09"
+          >
+            ReactJS
+          </ReactTooltip>
+
+          <ReactTooltip
+            id="angular"
+            place="left"
+            effect="solid"
+            backgroundColor="#EDAA09"
+          >
+            Angular
+          </ReactTooltip>
+
+          <ReactTooltip
+            id="mongo"
+            place="left"
+            effect="solid"
+            backgroundColor="#EDAA09"
+          >
+            MongoDB
+          </ReactTooltip>
+
+          <ReactTooltip
+            id="ts"
+            place="left"
+            effect="solid"
+            backgroundColor="#EDAA09"
+          >
+            Typescript
+          </ReactTooltip>
+
+          <ReactTooltip
+            id="node"
+            place="left"
+            effect="solid"
+            backgroundColor="#EDAA09"
+          >
+            NodeJS
+          </ReactTooltip>
+
+          <ReactTooltip
+            id="posgre"
+            place="left"
+            effect="solid"
+            backgroundColor="#EDAA09"
+          >
+            PostgreSQL
+          </ReactTooltip>
         </div>
       </div>
 
@@ -158,6 +242,10 @@ const Home = () => {
         <Typography variant="h3" align="center">
           PROJECTS
         </Typography>
+
+        <div className="projectsContainer">
+          <ProjectCard />
+        </div>
       </div>
     </div>
   );
