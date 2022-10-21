@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import "./Home.css";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import moonImg from "../../images/moon.jpg";
-import sunImg from "../../images/sun.jpg";
-import spaceImg from "../../images/space.jpg";
+import nucleoImg from "../../images/nucleo.jpg";
+import backgroundImg from "../../images/background.jpg";
 import { Typography } from "@mui/material";
 import Timelines from "../Timelines/Timelines";
-import me from "../../images/yo.jpg";
 import {
   SiMongodb,
   SiJavascript,
@@ -19,12 +16,19 @@ import {
 import { FaNodeJs, FaReact, FaCss3 } from "react-icons/fa";
 import ProjectCard from "../ProjectCard/ProjectCard";
 import ReactTooltip from "react-tooltip";
+
+import javascript from "../../images/js.png";
+import mongo from "../../images/mongo.png";
+import react from "../../images/react.png";
+import typescript from "../../images/typescript.svg";
+import node from "../../images/node.png";
+import angular from "../../images/angular.png";
+
 const Home = () => {
   useEffect(() => {
     const textureLoader = new THREE.TextureLoader();
-    const moonTexture = textureLoader.load(moonImg);
-    const sunTexture = textureLoader.load(sunImg);
-    const spaceTexture = textureLoader.load(spaceImg);
+    const nucleoTexture = textureLoader.load(nucleoImg);
+    const backgroundTexture = textureLoader.load(backgroundImg);
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -38,76 +42,50 @@ const Home = () => {
     const renderer = new THREE.WebGLRenderer({ canvas });
 
     const moonGeometry = new THREE.SphereGeometry(2, 64, 64);
-    const moonMaterial = new THREE.MeshStandardMaterial({ map: moonTexture });
-
-    const sunGeometry = new THREE.SphereGeometry(3, 64, 64);
-    const sunMaterial = new THREE.MeshStandardMaterial({ map: sunTexture });
+    const moonMaterial = new THREE.MeshStandardMaterial({ map: nucleoTexture });
 
     const pointLight = new THREE.PointLight(0xffffff, 1);
-    pointLight.position.set(8, 5, 5);
+    pointLight.position.set(4, 8, 8);
 
-    const pointLight2 = new THREE.PointLight(0xffffff, 1);
-    pointLight2.position.set(-8, -5, -5);
+    const nucleo = new THREE.Mesh(moonGeometry, moonMaterial);
 
-    const lightHelper = new THREE.PointLightHelper(pointLight);
-
-    const moon = new THREE.Mesh(moonGeometry, moonMaterial);
-    const sun = new THREE.Mesh(sunGeometry, sunMaterial);
-
-    const controls = new OrbitControls(camera, renderer.domElement);
-
-    scene.add(moon);
-    scene.add(sun);
+    scene.add(nucleo);
     scene.add(pointLight);
-    scene.add(pointLight2);
-    scene.add(lightHelper);
-    scene.background = spaceTexture;
+    scene.background = backgroundTexture;
 
-    const speed = 0.001;
+    const speed = 0.003;
     window.addEventListener("mousemove", (event) => {
       if (event.clientX <= window.innerWidth / 2) {
-        moon.rotation.x -= speed;
-        moon.rotation.y += speed;
-        sun.rotation.x -= speed;
-        sun.rotation.y += speed;
+        nucleo.rotation.x -= speed;
+        nucleo.rotation.y += speed;
       }
 
       if (event.clientX > window.innerWidth / 2) {
-        moon.rotation.x -= speed;
-        moon.rotation.y -= speed;
-        sun.rotation.x -= speed;
-        sun.rotation.y -= speed;
+        nucleo.rotation.x -= speed;
+        nucleo.rotation.y -= speed;
       }
 
       if (event.clientY > window.innerHeight / 2) {
-        moon.rotation.x -= speed;
-        moon.rotation.y += speed;
-        sun.rotation.x -= speed;
-        sun.rotation.y += speed;
+        nucleo.rotation.x -= speed;
+        nucleo.rotation.y += speed;
       }
 
       if (event.clientY <= window.innerHeight / 2) {
-        moon.rotation.x -= speed;
-        moon.rotation.y -= speed;
-        sun.rotation.x -= speed;
-        sun.rotation.y -= speed;
+        nucleo.rotation.x -= speed;
+        nucleo.rotation.y -= speed;
       }
     });
 
-    sun.position.set(7.5, 5, 5);
-    camera.position.set(3, 4, 9);
+    camera.position.set(0, 0, 9);
 
-    const animate = () => {
+    (function animate() {
       requestAnimationFrame(animate);
 
-      moon.rotation.y += 0.001;
-      sun.rotation.y += 0.001;
+      nucleo.rotation.y += 0.001;
 
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.render(scene, camera);
-    };
-
-    animate();
+    })();
   }, []);
 
   return (
@@ -126,22 +104,22 @@ const Home = () => {
         </Typography>
         <div className="cubeSkills">
           <div className="cubeFace face1">
-            <img src={me} alt="face1" />
+            <img src={javascript} alt="face1" />
           </div>
           <div className="cubeFace face2">
-            <img src={me} alt="face2" />
+            <img src={typescript} alt="face2" />
           </div>
           <div className="cubeFace face3">
-            <img src={me} alt="face3" />
+            <img src={node} alt="face3" />
           </div>
           <div className="cubeFace face4">
-            <img src={me} alt="face4" />
+            <img src={mongo} alt="face4" />
           </div>
           <div className="cubeFace face5">
-            <img src={me} alt="face5" />
+            <img src={react} alt="face5" />
           </div>
           <div className="cubeFace face6">
-            <img src={me} alt="face6" />
+            <img src={angular} alt="face6" />
           </div>
         </div>
         <div className="sideSkills">
@@ -155,86 +133,88 @@ const Home = () => {
           <SiPostgresql data-tip data-for="posgre" />
           <FaNodeJs data-tip data-for="node" />
 
-          <ReactTooltip
-            id="javascript"
-            place="left"
-            effect="solid"
-            backgroundColor="#EDAA09"
-          >
-            Javascript
-          </ReactTooltip>
+          <div className="tooltips">
+            <ReactTooltip
+              id="javascript"
+              place="left"
+              effect="solid"
+              backgroundColor="#EDAA09"
+            >
+              Javascript
+            </ReactTooltip>
 
-          <ReactTooltip
-            id="html"
-            place="left"
-            effect="solid"
-            backgroundColor="#EDAA09"
-          >
-            HTML
-          </ReactTooltip>
+            <ReactTooltip
+              id="html"
+              place="left"
+              effect="solid"
+              backgroundColor="#F78431"
+            >
+              HTML
+            </ReactTooltip>
 
-          <ReactTooltip
-            id="css"
-            place="left"
-            effect="solid"
-            backgroundColor="#EDAA09"
-          >
-            CSS3
-          </ReactTooltip>
+            <ReactTooltip
+              id="css"
+              place="left"
+              effect="solid"
+              backgroundColor="#2F9BED"
+            >
+              CSS3
+            </ReactTooltip>
 
-          <ReactTooltip
-            id="react"
-            place="left"
-            effect="solid"
-            backgroundColor="#EDAA09"
-          >
-            ReactJS
-          </ReactTooltip>
+            <ReactTooltip
+              id="react"
+              place="left"
+              effect="solid"
+              backgroundColor="#0CBFF0"
+            >
+              ReactJS
+            </ReactTooltip>
 
-          <ReactTooltip
-            id="angular"
-            place="left"
-            effect="solid"
-            backgroundColor="#EDAA09"
-          >
-            Angular
-          </ReactTooltip>
+            <ReactTooltip
+              id="angular"
+              place="left"
+              effect="solid"
+              backgroundColor="#E30030"
+            >
+              Angular
+            </ReactTooltip>
 
-          <ReactTooltip
-            id="mongo"
-            place="left"
-            effect="solid"
-            backgroundColor="#EDAA09"
-          >
-            MongoDB
-          </ReactTooltip>
+            <ReactTooltip
+              id="mongo"
+              place="left"
+              effect="solid"
+              backgroundColor="#00BE0C"
+            >
+              MongoDB
+            </ReactTooltip>
 
-          <ReactTooltip
-            id="ts"
-            place="left"
-            effect="solid"
-            backgroundColor="#EDAA09"
-          >
-            Typescript
-          </ReactTooltip>
+            <ReactTooltip
+              id="ts"
+              place="left"
+              effect="solid"
+              backgroundColor="#2D31C4"
+            >
+              Typescript
+            </ReactTooltip>
 
-          <ReactTooltip
-            id="node"
-            place="left"
-            effect="solid"
-            backgroundColor="#EDAA09"
-          >
-            NodeJS
-          </ReactTooltip>
+            <ReactTooltip
+              id="node"
+              place="left"
+              effect="solid"
+              backgroundColor="#00BF2E"
+            >
+              NodeJS
+            </ReactTooltip>
 
-          <ReactTooltip
-            id="posgre"
-            place="left"
-            effect="solid"
-            backgroundColor="#EDAA09"
-          >
-            PostgreSQL
-          </ReactTooltip>
+            <ReactTooltip
+              id="posgre"
+              place="left"
+              effect="solid"
+              backgroundColor="#8C835F"
+            >
+              PostgreSQL
+            </ReactTooltip>
+          </div>
         </div>
       </div>
 
