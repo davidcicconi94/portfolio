@@ -30,7 +30,7 @@ import argPrograma from "../../images/ArgentinaPrograma.jpg";
 import scrum from "../../images/scrum.jpg";
 import efset from "../../images/efset.jpg";
 
-import CertificateCard from "../ProjectCard/CertificateCard";
+import CertificateCard from "../CertificatesCard/CertificateCard";
 
 const Home = () => {
   useEffect(() => {

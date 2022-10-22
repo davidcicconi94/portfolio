@@ -1,0 +1,55 @@
+.projects {
+background-color: #252525;
+min-height: 100vh;
+padding-top: 15vmax;
+
+}
+
+.projects > h3 {
+    position: absolute;
+    text-align: center;
+    color: azure;
+    background-color: rgb(70, 70, 235);
+    padding: 2vmax 4vmax;
+    display: flex;
+    border-radius: 100px;
+    align-items: center;
+    left: 50%;
+    transform: translate(-50% , -100vh);
+    animation: projectHeaderAnimation 1s ease-in-out forwards;
+}
+
+.projects > h3 > svg {
+    margin: 1vmax;
+}
+
+.projectsContainer {
+    border-top: 100px solid azure;
+    border-radius: 300px 300px 0 0;
+    min-height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5vmax;
+    padding-bottom: 10vmax;
+    background-color: azure;
+    overflow-x: hidden;
+}
+
+.projectCard{
+    width: 80%;
+    text-decoration: none;
+    color: #252525;
+    border-radius: 10px;
+    display: flex;
+    transform: translateX(-100vh);
+    animation: projectCardAnimation 1s ease-in-out forwards 0.5s
+}
+
+/* Hacer .projectCard:nth-child(even) */
+
+@keyframes projectCardAnimation {
+    to {
+        transform: translate(0);
+    }
+}
