@@ -14,7 +14,6 @@ import {
   SiAngular,
 } from "react-icons/si";
 import { FaNodeJs, FaReact, FaCss3 } from "react-icons/fa";
-import ProjectCard from "../ProjectCard/ProjectCard";
 import ReactTooltip from "react-tooltip";
 
 import javascript from "../../images/js.png";
@@ -23,6 +22,15 @@ import react from "../../images/react.png";
 import typescript from "../../images/typescript.svg";
 import node from "../../images/node.png";
 import angular from "../../images/angular.png";
+
+import youtube from "../../images/youtube.png";
+import henry from "../../images/certificado-henry.jpg";
+import redjar from "../../images/redjar-angular.jpg";
+import argPrograma from "../../images/ArgentinaPrograma.jpg";
+import scrum from "../../images/scrum.jpg";
+import efset from "../../images/efset.jpg";
+
+import CertificateCard from "../ProjectCard/CertificateCard";
 
 const Home = () => {
   useEffect(() => {
@@ -218,13 +226,18 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="projects">
+      <div className="certificates">
         <Typography variant="h3" align="center">
-          PROJECTS
+          CERTIFICATES
         </Typography>
 
-        <div className="projectsContainer">
-          <ProjectCard />
+        <div className="certificatesContainer">
+          <CertificateCard title="Full Stack Web Developer" image={henry} />
+          <CertificateCard title="Angular Bootcamp" image={redjar} />
+
+          <CertificateCard title="Argentina Programa" image={argPrograma} />
+          <CertificateCard title="SCRUM" image={scrum} />
+          <CertificateCard title="EFSET: B2 Upper Intermediate" image={efset} />
         </div>
       </div>
     </div>

@@ -1,0 +1,41 @@
+.footerContainer {
+    background-color: #252525;
+    padding: 4vmax ;
+    display: grid;
+    grid-template-columns: 1fr 200px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.footerContainer > div > h5 {
+    text-align: center;
+
+    color: white;
+    border-bottom: 1px solid white;
+    width: 200px;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+
+.footerContainer > div > p {
+    color: rgb(180, 180, 180);
+    width: 20%;
+    margin-bottom: 20px;
+}
+
+.socialMedias > a {
+    text-align: center;
+    font-size: 30px;
+    padding: 17px;
+}
+
+@media screen and (max-width: 800px){
+    .footerContainer > div > p {
+        color: rgb(180, 180, 180);
+        width: 80%;
+    }
+}
+
