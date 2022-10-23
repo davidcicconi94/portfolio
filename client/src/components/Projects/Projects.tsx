@@ -4,6 +4,7 @@ import { Button, Typography } from "@mui/material";
 import { AiOutlineProject } from "react-icons/ai";
 import { Delete } from "@mui/icons-material";
 import fitFocus from "../../images/fit-focus.jpg";
+import { FaRegSmileWink } from "react-icons/fa";
 
 type ProjectProps = {
   projectTitle: string;
@@ -24,17 +25,17 @@ const ProjectCard = ({
 }: ProjectProps) => {
   return (
     <>
-      <a href={url} target="blank" className="projectCard">
+      <a href={url} className="projectCard" target="black">
         <div>
-          <img src={projectImg} alt="Project-img.jpg" />
-          <Typography color="black" variant="h5" className="projectTitle">
+          <img src={projectImg} alt="Project" />
+          <Typography variant="h5" className="titleProject">
             {projectTitle}
           </Typography>
         </div>
         <div>
-          <Typography variant="h4">About project</Typography>
-          <Typography variant="h6"> {description} </Typography>
-          <Typography variant="h6"> Tech Stack: {technologies} </Typography>
+          <Typography variant="h4"> Description </Typography>
+          <Typography>{description}</Typography>
+          <Typography variant="h6">Tech Stack: {technologies}</Typography>
         </div>
       </a>
 
@@ -68,6 +69,9 @@ const Projects: React.FC = () => {
           />
         ))}
       </div>
+      <Typography variant="h3" style={{ font: "100 1.2rem 'Ubuntu Mono'" }}>
+        ALL THE PROJECTS SHOWN ABOVE ARE MADE WITH LOVE <FaRegSmileWink />
+      </Typography>
     </div>
   );
 };
