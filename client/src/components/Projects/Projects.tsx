@@ -60,6 +60,7 @@ const Projects: React.FC = () => {
       <div className="projectsContainer">
         {projects.map((project, index) => (
           <ProjectCard
+            key={index}
             projectTitle="Fit-Focus App"
             projectImg={fitFocus}
             url="https://www.youtube.com/watch?v=eEBadWJC3Bo&t=2s"

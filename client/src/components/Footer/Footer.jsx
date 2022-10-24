@@ -17,7 +17,7 @@ const Footer = () => {
 
         <Typography>
           <Button variant="outlined">
-            <Link to="/contact" classname="btnContact">
+            <Link to="/contact" className="btnContact">
               Contact Me
             </Link>
           </Button>
