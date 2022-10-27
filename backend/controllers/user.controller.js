@@ -1,4 +1,4 @@
-import { User } from "../models/User";
+import { User } from "../models/User.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
@@ -64,6 +64,42 @@ export const getUser = async (req, res) => {
     res.status(200).json({
       success: true,
       user,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const getMyProfile = async (req, res) => {
+  try {
+    const user = User.findOne(req.user._id);
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const contact = async (req, res) => {
+  try {
+    const { email, name, message } = req.body;
+
+    const userMessage = `Hi, i am ${name}. My email is ${email} and my message is: ${message}`;
+
+    await sendMail(userMessage);
+
+    return res.status(200).json({
+      success: true,
+      message: "Message sent succesfully!",
     });
   } catch (error) {
     return res.status(400).json({
