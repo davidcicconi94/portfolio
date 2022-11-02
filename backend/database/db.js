@@ -7,7 +7,9 @@ export const connectDatabase = () => {
   mongoose
     .connect(process.env.MONGO_URI)
     .then((data) => {
-      console.log(`Mongo connect to ${data.connection.host} `);
+      console.log(
+        `Mongo connect to ${data.connection.host} ${data.connection.db} `
+      );
     })
     .catch((error) => {
       console.log(error);

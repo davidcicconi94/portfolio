@@ -24,27 +24,27 @@ const userSchema = new Schema({
 
   skills: {
     image1: {
-      publicId: String,
+      public_id: String,
       url: String,
     },
     image2: {
-      publicId: String,
+      public_id: String,
       url: String,
     },
     image3: {
-      publicId: String,
+      public_id: String,
       url: String,
     },
     image4: {
-      publicId: String,
+      public_id: String,
       url: String,
     },
     image5: {
-      publicId: String,
+      public_id: String,
       url: String,
     },
     image6: {
-      publicId: String,
+      public_id: String,
       url: String,
     },
   },
@@ -54,14 +54,11 @@ const userSchema = new Schema({
       title: String,
       url: String,
       image: {
-        publicId: String,
+        public_id: String,
         url: String,
       },
       description: String,
-      techStach: {
-        type: Array,
-        default: [],
-      },
+      techStach: String,
     },
   ],
 
@@ -72,7 +69,7 @@ const userSchema = new Schema({
     description: String,
     quote: String,
     avatar: {
-      publicId: String,
+      public_id: String,
       url: String,
     },
   },
