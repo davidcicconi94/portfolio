@@ -23,7 +23,6 @@ import typescript from "../../images/typescript.svg";
 import node from "../../images/node.png";
 import angular from "../../images/angular.png";
 
-import youtube from "../../images/youtube.png";
 import henry from "../../images/certificado-henry.jpg";
 import redjar from "../../images/redjar-angular.jpg";
 import argPrograma from "../../images/ArgentinaPrograma.jpg";
