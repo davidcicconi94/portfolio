@@ -24,7 +24,7 @@ export const login = async (req, res) => {
     res
       .status(200)
       .cookie("token", token, {
-        expires: new Date(Date.now + 30 * 60 * 1000),
+        expires: new Date(Date.now() + 259200000),
         httpOnly: true,
       })
       .json({
@@ -113,7 +113,8 @@ export const contact = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    const user = User.findOne(req.user._id);
+    const user = await User.findOne({ email: "david.cicconi94@gmail.com" });
+    console.log("Este es el contenido del usuario:", user);
 
     const { name, email, password, skills, about } = req.body;
 
