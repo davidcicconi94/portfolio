@@ -3,22 +3,20 @@ import "./About.css";
 import { Typography } from "@mui/material";
 import me from "../../images/yo.jpg";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { getUser } from "../../slices/userSlice";
+import { getProfileInfo } from "../../slices/userSlice";
 
 const About = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.about); // Object { success , user: {}}
 
   useEffect(() => {
-    dispatch(getUser());
+    dispatch(getProfileInfo());
   }, [dispatch]);
-
-  console.log(user);
 
   return (
     <div className="about">
       <div className="firstContainer">
-        <Typography>Write just here motherfucker</Typography>
+        <Typography> {user?.quote} </Typography>
       </div>
 
       <div className="secondContainer">
@@ -32,7 +30,7 @@ const About = () => {
             {user?.name}
           </Typography>
           <Typography variant="h5" style={{ letterSpacing: "5px" }}>
-            Full Stack Web Developer
+            {user?.title}
           </Typography>
         </div>
 
@@ -45,9 +43,7 @@ const About = () => {
               textAlign: "right",
             }}
           >
-            This is description: Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Natus ex error odit dolores assumenda quibusdam
-            nemo nesciunt soluta aut sunt!
+            {user?.description}
           </Typography>
         </div>
       </div>

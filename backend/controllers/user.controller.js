@@ -61,7 +61,8 @@ export const logout = async (req, res) => {
 
 export const getUser = async (req, res) => {
   try {
-    const user = User.findOne().select("-password -email");
+    const user = User.findOne();
+    console.log(user);
 
     res.status(200).json({
       success: true,
@@ -77,7 +78,7 @@ export const getUser = async (req, res) => {
 
 export const getMyProfile = async (req, res) => {
   try {
-    const user = User.findOne(req.user._id);
+    const user = await User.findOne().select("-password -email");
 
     res.status(200).json({
       success: true,

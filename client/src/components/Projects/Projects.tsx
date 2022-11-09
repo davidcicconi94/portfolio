@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Projects.css";
 import { Button, Typography } from "@mui/material";
 import { AiOutlineProject } from "react-icons/ai";
 import { Delete } from "@mui/icons-material";
 import fitFocus from "../../images/fit-focus.jpg";
 import { FaRegSmileWink } from "react-icons/fa";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { getProfileInfo } from "../../slices/userSlice";
 
 type ProjectProps = {
   projectTitle: string;
@@ -49,7 +51,12 @@ const ProjectCard = ({
 };
 
 const Projects: React.FC = () => {
-  const projects: Array<any> = [1, 2, 3];
+  const dispatch = useAppDispatch();
+  const projects = useAppSelector((state) => state.user.projects);
+
+  useEffect(() => {
+    dispatch(getProfileInfo());
+  }, [dispatch]);
 
   return (
     <div className="projects">
@@ -61,11 +68,11 @@ const Projects: React.FC = () => {
         {projects.map((project, index) => (
           <ProjectCard
             key={index}
-            projectTitle="Fit-Focus App"
+            projectTitle={project?.title}
             projectImg={fitFocus}
-            url="https://www.youtube.com/watch?v=eEBadWJC3Bo&t=2s"
-            description="Esta es la descripcion"
-            technologies={["React , MongoDB", "Node"]}
+            url={project?.url}
+            description={project?.description}
+            technologies={project?.techStack}
             isAdmin={false}
           />
         ))}

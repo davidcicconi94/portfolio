@@ -6,30 +6,27 @@ export interface UserState {
   name: string;
   email: string;
   password: string;
-  projects: Array<string>;
+  projects: Array<any>;
   about: {
     name: string;
     description: string;
     title: string;
-    subtitle: string;
     quote: string;
   };
 }
 
 const initialState: UserState = {
   status: "",
-  name: "d",
+  name: "",
   email: "",
   password: "",
-  projects: [],
-  about: { name: "", description: "", title: "", subtitle: "", quote: "" },
+  projects: [{ title: "", url: "", description: "", techStack: "" }],
+  about: { name: "", description: "", title: "", quote: "" },
 };
 
 // Obtener usuario
-export const getUser = createAsyncThunk("user/about_me", async () => {
+export const getProfileInfo = createAsyncThunk("user/about_me", async () => {
   const response = await axios.get("http://localhost:3001/aboutme");
-
-  console.log(response.data.user);
 
   return response.data.user; // objeto
 });
@@ -40,14 +37,15 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getUser.fulfilled, (state, action) => {
+      .addCase(getProfileInfo.fulfilled, (state, action) => {
         state.status = "success";
         state.about = action.payload.about;
+        state.projects = action.payload.projects;
       })
-      .addCase(getUser.pending, (state, action) => {
+      .addCase(getProfileInfo.pending, (state, action) => {
         state.status = "pending";
       })
-      .addCase(getUser.rejected, (state, action) => {
+      .addCase(getProfileInfo.rejected, (state, action) => {
         state.status = "rejected";
       });
   },

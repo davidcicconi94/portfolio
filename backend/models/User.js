@@ -14,14 +14,6 @@ const userSchema = new Schema({
     required: [true, "Please enter your password"],
   },
 
-  timeline: [
-    {
-      title: String,
-      description: String,
-      date: Date,
-    },
-  ],
-
   skills: {
     image1: {
       public_id: String,
