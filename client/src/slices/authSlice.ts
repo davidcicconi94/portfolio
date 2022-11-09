@@ -1,20 +1,39 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
 
-export interface AuthState {
-  accesToken: string | null;
+interface authState {
+  loading: boolean;
+  isAuthenticated: boolean;
+  error: string;
 }
 
-const initialState = {
-  accessToken: null,
+const initialState: authState = {
+  loading: false,
+  isAuthenticated: false,
+  error: "",
 };
 
-const authSlice = createSlice({
+export const login = createAsyncThunk("http://localhost/login", async () => {});
+
+export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    setAccessToken: (state, action: PayloadAction<any>) => {
-      state.accessToken = action.payload;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(login.pending, (state, action) => {
+        state.isAuthenticated = false;
+        state.loading = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isAuthenticated = true;
+        state.loading = false;
+      })
+      .addCase(login.rejected, (state, action: PayloadAction<any>) => {
+        state.isAuthenticated = false;
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 

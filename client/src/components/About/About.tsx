@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./About.css";
 import { Typography } from "@mui/material";
 import me from "../../images/yo.jpg";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { getUser } from "../../slices/userSlice";
 
 const About = () => {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.about); // Object { success , user: {}}
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
+  console.log(user);
+
   return (
     <div className="about">
       <div className="firstContainer">
@@ -18,7 +29,7 @@ const About = () => {
             variant="h4"
             style={{ margin: "1vmax 0", color: "black" }}
           >
-            David Cicconi
+            {user?.name}
           </Typography>
           <Typography variant="h5" style={{ letterSpacing: "5px" }}>
             Full Stack Web Developer
