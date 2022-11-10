@@ -1,10 +1,16 @@
 import { Button, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { login } from "../../slices/authSlice";
 import "./Login.css";
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
+  const [email, setEmail] = useState<any>("");
+  const [password, setPassword] = useState<any>("");
+  const dispatch = useAppDispatch();
+  const { isAuthenticated, loading, message } = useAppSelector(
+    (state) => state.auth
+  );
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -16,13 +22,17 @@ const Login: React.FC = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({
-      mail: email,
-      password: password,
-    });
 
-    setEmail("");
-    setPassword("");
+    dispatch(login({ email, password }));
+
+    if (isAuthenticated && !loading) {
+      alert("Welcome back!");
+    } else if (!isAuthenticated && !loading) {
+      alert("No!!");
+    }
+
+    /*     setEmail("");
+    setPassword(""); */
   };
 
   return (
