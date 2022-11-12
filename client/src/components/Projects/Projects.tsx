@@ -53,6 +53,7 @@ const ProjectCard = ({
 const Projects: React.FC = () => {
   const dispatch = useAppDispatch();
   const projects = useAppSelector((state) => state.user.projects);
+  const isAdmin = useAppSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
     dispatch(getProfileInfo());
@@ -73,7 +74,7 @@ const Projects: React.FC = () => {
             url={project?.url}
             description={project?.description}
             technologies={project?.techStack}
-            isAdmin={false}
+            isAdmin={isAdmin}
           />
         ))}
       </div>

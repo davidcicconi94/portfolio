@@ -4,11 +4,11 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { login } from "../../slices/authSlice";
 import "./Login.css";
 
-const Login: React.FC = () => {
+const Login = () => {
   const [email, setEmail] = useState<any>("");
   const [password, setPassword] = useState<any>("");
   const dispatch = useAppDispatch();
-  const { isAuthenticated, loading, message } = useAppSelector(
+  const { isAuthenticated, loading, message, error } = useAppSelector(
     (state) => state.auth
   );
 
@@ -25,10 +25,10 @@ const Login: React.FC = () => {
 
     dispatch(login({ email, password }));
 
-    if (isAuthenticated && !loading) {
-      alert("Welcome back!");
-    } else if (!isAuthenticated && !loading) {
-      alert("No!!");
+    if (isAuthenticated) {
+      alert("Usuario conectado!");
+    } else {
+      console.log("no conectado");
     }
 
     /*     setEmail("");
@@ -70,6 +70,7 @@ const Login: React.FC = () => {
             />
 
             <Button
+              disabled={loading}
               variant="contained"
               type="submit"
               style={{ letterSpacing: "5px" }}
