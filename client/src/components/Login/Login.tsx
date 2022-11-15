@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { login } from "../../slices/authSlice";
 import "./Login.css";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState<any>("");
@@ -24,15 +25,6 @@ const Login = () => {
     e.preventDefault();
 
     dispatch(login({ email, password }));
-
-    if (isAuthenticated) {
-      alert("Usuario conectado!");
-    } else {
-      console.log("no conectado");
-    }
-
-    /*     setEmail("");
-    setPassword(""); */
   };
 
   return (
@@ -53,31 +45,53 @@ const Login = () => {
             <p>L</p>
           </Typography>
 
-          <div>
-            <input
-              placeholder="Email..."
-              type="text"
-              name="email"
-              value={email}
-              onChange={onChangeEmail}
-            />
-            <input
-              placeholder="Password..."
-              type="password"
-              name="password"
-              value={password}
-              onChange={onChangePassword}
-            />
-
-            <Button
-              disabled={loading}
-              variant="contained"
-              type="submit"
-              style={{ letterSpacing: "5px" }}
-            >
-              Login
-            </Button>
-          </div>
+          {!isAuthenticated ? (
+            <div>
+              <input
+                placeholder="Email..."
+                type="text"
+                name="email"
+                value={email}
+                onChange={onChangeEmail}
+                required
+              />
+              <input
+                placeholder="Password..."
+                type="password"
+                name="password"
+                value={password}
+                onChange={onChangePassword}
+                required
+              />
+              <Button
+                disabled={loading}
+                variant="contained"
+                type="submit"
+                style={{ letterSpacing: "5px" }}
+              >
+                Login
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <input
+                placeholder="david.cicconi94@gmail.com"
+                type="text"
+                name="email"
+                value={email}
+                onChange={onChangeEmail}
+                disabled
+              />
+              <Button
+                disabled={loading}
+                variant="contained"
+                type="submit"
+                style={{ letterSpacing: "5px" }}
+              >
+                Logout
+              </Button>
+            </div>
+          )}
         </form>
       </div>
     </div>

@@ -20,11 +20,19 @@ const initialState: AuthState = {
   message: "",
 };
 
-export const login = createAsyncThunk("user/login", async (user: object) => {
-  const { data } = await axios.post("http://localhost:3001/login", user);
-  console.log(data);
-  return data;
-});
+export const login = createAsyncThunk(
+  "user/login",
+  async (user: object, thunAPI) => {
+    try {
+      const { data } = await axios.post("http://localhost:3001/login", user);
+      console.log(data.message);
+      return data.message; // welcome back
+    } catch (error: any) {
+      console.log(error.response.data.message);
+      return thunAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);
 
 export const logout = createAsyncThunk("user_logout", async () => {
   const { data } = await axios.get("http://localhost:3001/logout");
@@ -49,7 +57,7 @@ export const authSlice = createSlice({
       .addCase(login.rejected, (state, action: PayloadAction<any>) => {
         state.isAuthenticated = false;
         state.loading = false;
-        state.error = action.payload;
+        state.message = action.payload;
       })
       .addCase(logout.pending, (state, action) => {
         state.isAuthenticated = true;
