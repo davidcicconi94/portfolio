@@ -1,7 +1,8 @@
 import { Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { login } from "../../slices/authSlice";
+import { clearError, clearMessage, login } from "../../slices/authSlice";
+import { getProfileInfo, loadUser } from "../../slices/userSlice";
 import "./Login.css";
 
 const Login = () => {
@@ -24,16 +25,20 @@ const Login = () => {
     e.preventDefault();
 
     dispatch(login({ email, password }));
+    dispatch(loadUser());
+    dispatch(getProfileInfo());
   };
 
   useEffect(() => {
     if (error) {
       console.log("NO:", message);
+      dispatch(clearError());
     }
-    if (message && error) {
+    if (message && !error) {
       console.log("SI", message);
+      dispatch(clearMessage()); // entra
     }
-  }, [isAuthenticated, error, message]);
+  }, [error, message, dispatch]);
 
   return (
     <div className="login">

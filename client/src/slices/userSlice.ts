@@ -3,7 +3,7 @@ import axios from "axios";
 
 export interface UserState {
   status: string;
-  name: string;
+  name: string | null;
   email: string;
   password: string;
   projects: Array<any>;
@@ -28,7 +28,15 @@ const initialState: UserState = {
 export const getProfileInfo = createAsyncThunk("user/about_me", async () => {
   const response = await axios.get("http://localhost:3001/aboutme");
 
+  console.log(response.data.user);
   return response.data.user; // objeto
+});
+
+export const loadUser = createAsyncThunk("user/load", async () => {
+  const { data } = await axios.get("http://localhost:3001/user");
+
+  console.log(data.user);
+  return data.user;
 });
 
 const userSlice = createSlice({
@@ -46,6 +54,17 @@ const userSlice = createSlice({
         state.status = "pending";
       })
       .addCase(getProfileInfo.rejected, (state, action) => {
+        state.status = "rejected";
+      })
+      .addCase(loadUser.fulfilled, (state, action) => {
+        state.email = action.payload.email;
+        state.name = action.payload.about.name;
+        state.password = action.payload.password;
+      })
+      .addCase(loadUser.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(loadUser.rejected, (state, action) => {
         state.status = "rejected";
       });
   },

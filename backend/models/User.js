@@ -10,7 +10,7 @@ const userSchema = new Schema({
 
   password: {
     type: String,
-    select: false,
+    // select: false, propiedad que me inhabilita ver la contraseña en el estado global
     required: [true, "Please enter your password"],
   },
 

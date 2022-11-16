@@ -61,10 +61,9 @@ export const logout = async (req, res) => {
 
 export const getUser = async (req, res) => {
   try {
-    const user = User.findOne();
-    console.log(user);
+    const user = await User.findOne();
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       user,
     });
