@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { login } from "../../slices/authSlice";
 import "./Login.css";
-import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState<any>("");
@@ -26,6 +25,15 @@ const Login = () => {
 
     dispatch(login({ email, password }));
   };
+
+  useEffect(() => {
+    if (error) {
+      console.log("NO:", message);
+    }
+    if (message && error) {
+      console.log("SI", message);
+    }
+  }, [isAuthenticated, error, message]);
 
   return (
     <div className="login">

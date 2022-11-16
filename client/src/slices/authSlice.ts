@@ -9,20 +9,20 @@ interface User {
 interface AuthState {
   loading: boolean;
   isAuthenticated: boolean;
-  error: string | null;
   message: string | null;
+  error: boolean;
 }
 
 const initialState: AuthState = {
   loading: false,
   isAuthenticated: false,
-  error: "",
   message: "",
+  error: false,
 };
 
 export const login = createAsyncThunk(
   "user/login",
-  async (user: object, thunAPI) => {
+  async (user: User, thunAPI) => {
     try {
       const { data } = await axios.post("http://localhost:3001/login", user);
       console.log(data.message);
@@ -53,15 +53,19 @@ export const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isAuthenticated = true;
         state.loading = false;
+        state.message = action.payload;
+        state.error = false;
       })
       .addCase(login.rejected, (state, action: PayloadAction<any>) => {
         state.isAuthenticated = false;
         state.loading = false;
         state.message = action.payload;
+        state.error = true;
       })
       .addCase(logout.pending, (state, action) => {
         state.isAuthenticated = true;
         state.loading = true;
+        state.error = false;
       })
       .addCase(logout.fulfilled, (state, action) => {
         state.isAuthenticated = false;
@@ -70,7 +74,6 @@ export const authSlice = createSlice({
       .addCase(logout.rejected, (state, action: PayloadAction<any>) => {
         state.isAuthenticated = true;
         state.loading = false;
-        state.error = action.payload;
       });
   },
 });
