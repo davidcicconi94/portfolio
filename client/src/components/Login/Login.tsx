@@ -1,7 +1,12 @@
 import { Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { clearError, clearMessage, login } from "../../slices/authSlice";
+import {
+  clearError,
+  clearMessage,
+  login,
+  logout,
+} from "../../slices/authSlice";
 import { getProfileInfo, loadUser } from "../../slices/userSlice";
 import "./Login.css";
 import Swal from "sweetalert2";
@@ -37,7 +42,7 @@ const Login = () => {
         title: `${error}`,
         showConfirmButton: true,
         confirmButtonText: "Try again!",
-        confirmButtonColor: "#8CD4F5",
+        confirmButtonColor: "#000000",
       });
       dispatch(clearError());
     }
@@ -56,6 +61,10 @@ const Login = () => {
       // Redireccionar
     }
   }, [error, message, dispatch, name]);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <div className="login">
@@ -115,8 +124,8 @@ const Login = () => {
               <Button
                 disabled={loading}
                 variant="contained"
-                type="submit"
                 style={{ letterSpacing: "5px" }}
+                onClick={handleLogout}
               >
                 Logout
               </Button>

@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useAppSelector } from "./app/hooks";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
 import About from "./components/About/About";
+import Panel from "./components/Admin/Panel";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
@@ -9,6 +11,8 @@ import Login from "./components/Login/Login";
 import Projects from "./components/Projects/Projects";
 
 const App: React.FC = () => {
+  const { isAuthenticated, loading } = useAppSelector((state) => state.auth);
+
   return (
     <Router>
       <Header />
@@ -17,7 +21,10 @@ const App: React.FC = () => {
         <Route path="/about" element={<About />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/account" element={<Login />} />
+        <Route
+          path="/account"
+          element={isAuthenticated ? <Panel /> : <Login />}
+        />
       </Routes>
       <Footer />
     </Router>
