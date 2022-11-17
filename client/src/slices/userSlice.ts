@@ -28,15 +28,17 @@ const initialState: UserState = {
 export const getProfileInfo = createAsyncThunk("user/about_me", async () => {
   const response = await axios.get("http://localhost:3001/aboutme");
 
-  console.log(response.data.user);
   return response.data.user; // objeto
 });
 
-export const loadUser = createAsyncThunk("user/load", async () => {
-  const { data } = await axios.get("http://localhost:3001/user");
+export const loadUser = createAsyncThunk("user/load", async (thunAPI) => {
+  try {
+    const { data } = await axios.get("http://localhost:3001/user");
 
-  console.log(data.user);
-  return data.user;
+    return data.user;
+  } catch (error: any) {
+    return error;
+  }
 });
 
 const userSlice = createSlice({
@@ -63,9 +65,11 @@ const userSlice = createSlice({
       })
       .addCase(loadUser.pending, (state, action) => {
         state.status = "pending";
+        state.email = "";
       })
       .addCase(loadUser.rejected, (state, action) => {
         state.status = "rejected";
+        state.email = "";
       });
   },
 });

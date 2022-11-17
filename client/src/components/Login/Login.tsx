@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { clearError, clearMessage, login } from "../../slices/authSlice";
 import { getProfileInfo, loadUser } from "../../slices/userSlice";
 import "./Login.css";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [email, setEmail] = useState<any>("");
@@ -12,6 +13,7 @@ const Login = () => {
   const { isAuthenticated, loading, message, error } = useAppSelector(
     (state) => state.auth
   );
+  const { name } = useAppSelector((state) => state.user);
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -25,20 +27,35 @@ const Login = () => {
     e.preventDefault();
 
     dispatch(login({ email, password }));
-    dispatch(loadUser());
-    dispatch(getProfileInfo());
   };
 
   useEffect(() => {
     if (error) {
-      console.log("NO:", message);
+      Swal.fire({
+        position: "top",
+        icon: "error",
+        title: `${error}`,
+        showConfirmButton: true,
+        confirmButtonText: "Try again!",
+        confirmButtonColor: "#8CD4F5",
+      });
       dispatch(clearError());
     }
     if (message && !error) {
-      console.log("SI", message);
-      dispatch(clearMessage()); // entra
+      dispatch(loadUser());
+      dispatch(getProfileInfo());
+
+      Swal.fire({
+        icon: "success",
+        title: `${message} ${name} ! `,
+        showConfirmButton: false,
+        position: "top",
+        timer: 1500,
+      });
+      dispatch(clearMessage());
+      // Redireccionar
     }
-  }, [error, message, dispatch]);
+  }, [error, message, dispatch, name]);
 
   return (
     <div className="login">

@@ -28,7 +28,6 @@ export const login = createAsyncThunk(
       console.log(data.message);
       return data.message; // welcome back
     } catch (error: any) {
-      console.log(error.response.data.message);
       return thunAPI.rejectWithValue(error.response.data.message);
     }
   }

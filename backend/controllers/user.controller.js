@@ -29,7 +29,7 @@ export const login = async (req, res) => {
       })
       .json({
         success: true,
-        message: "Welcome back!",
+        message: "Welcome back",
       });
   } catch (error) {
     return res.status(400).json({
