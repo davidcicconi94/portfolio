@@ -61,39 +61,9 @@ const Panel = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(updateUser(name, email, password, skills, about));
+    dispatch(updateUser());
 
     console.log(name, email, password, skills, about);
-  };
-
-  const handleImages = (e: any, value: number) => {
-    const file = e.target.files[0];
-    const Reader = new FileReader();
-
-    Reader.readAsDataURL(file);
-
-    Reader.onload = () => {
-      if (Reader.readyState === 2) {
-        if (value === 1) {
-          setSkills({ ...skills, image1: Reader.result });
-        }
-        if (value === 2) {
-          setSkills({ ...skills, image2: Reader.result });
-        }
-        if (value === 3) {
-          setSkills({ ...skills, image3: Reader.result });
-        }
-        if (value === 4) {
-          setSkills({ ...skills, image4: Reader.result });
-        }
-        if (value === 5) {
-          setSkills({ ...skills, image5: Reader.result });
-        }
-        if (value === 6) {
-          setSkills({ ...skills, image6: Reader.result });
-        }
-      }
-    };
   };
 
   const handleAboutImage = (e: any) => {
@@ -111,7 +81,7 @@ const Panel = () => {
 
   return (
     <div className="adminPanel">
-      <div className="adminContainer">
+      <div className="adminPanelContainer">
         <Typography variant="h4">
           <p>A</p>
           <p>D</p>
@@ -148,66 +118,6 @@ const Panel = () => {
             onChange={handleChangePassword}
             className="adminPanelInputs"
           />
-          <div className="adminPanelSkills">
-            <div>
-              <Typography> SKILL 1 </Typography>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleImages(e, 1)}
-              />
-            </div>
-            <div>
-              <Typography>SKILL 2</Typography>
-
-              <input
-                type="file"
-                onChange={(e) => handleImages(e, 2)}
-                accept="image/*"
-                className="adminPanelFileUpload"
-              />
-            </div>
-            <div>
-              <Typography>SKILL 3</Typography>
-
-              <input
-                type="file"
-                onChange={(e) => handleImages(e, 3)}
-                accept="image/*"
-                className="adminPanelFileUpload"
-              />
-            </div>
-            <div>
-              <Typography>SKILL 4</Typography>
-
-              <input
-                type="file"
-                onChange={(e) => handleImages(e, 4)}
-                accept="image/*"
-                className="adminPanelFileUpload"
-              />
-            </div>
-            <div>
-              <Typography>SKILL 5</Typography>
-
-              <input
-                type="file"
-                onChange={(e) => handleImages(e, 5)}
-                accept="image/*"
-                className="adminPanelFileUpload"
-              />
-            </div>
-            <div>
-              <Typography>SKILL 6</Typography>
-
-              <input
-                type="file"
-                onChange={(e) => handleImages(e, 6)}
-                accept="image/*"
-                className="adminPanelFileUpload"
-              />
-            </div>
-          </div>
 
           <div className="adminPanelAbout">
             <fieldset>
@@ -255,7 +165,6 @@ const Panel = () => {
           </div>
         </form>
       </div>
-      <h2>Panel de administrador</h2>
     </div>
   );
 };

@@ -35,8 +35,19 @@ export const loadUser = createAsyncThunk("user/load", async (thunAPI) => {
   try {
     const { data } = await axios.get("http://localhost:3001/user");
 
+    console.log(data.user);
     return data.user;
   } catch (error: any) {
+    return error;
+  }
+});
+
+export const updateUser = createAsyncThunk("user/update", async () => {
+  try {
+    const { data } = await axios.put("http://localhost:3001/admin/update", {});
+    console.log(data);
+    return data;
+  } catch (error) {
     return error;
   }
 });
@@ -59,6 +70,7 @@ const userSlice = createSlice({
         state.status = "rejected";
       })
       .addCase(loadUser.fulfilled, (state, action) => {
+        state.status = "success";
         state.email = action.payload.email;
         state.name = action.payload.about.name;
         state.password = action.payload.password;

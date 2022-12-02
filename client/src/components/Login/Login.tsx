@@ -46,21 +46,13 @@ const Login = () => {
       });
       dispatch(clearError());
     }
-    if (message && !error) {
+    if (isAuthenticated) {
       dispatch(loadUser());
-      dispatch(getProfileInfo());
 
-      Swal.fire({
-        icon: "success",
-        title: `${message} ${name} ! `,
-        showConfirmButton: false,
-        position: "top",
-        timer: 1500,
-      });
       dispatch(clearMessage());
       // Redireccionar
     }
-  }, [error, message, dispatch, name]);
+  }, [dispatch, isAuthenticated, error]);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -121,6 +113,7 @@ const Login = () => {
                 onChange={onChangeEmail}
                 disabled
               />
+
               <Button
                 disabled={loading}
                 variant="contained"

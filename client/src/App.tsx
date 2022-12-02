@@ -9,9 +9,17 @@ import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import Projects from "./components/Projects/Projects";
+import { loadUser } from "./slices/userSlice";
 
 const App: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { isAuthenticated, loading } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(loadUser());
+    }
+  }, [isAuthenticated, dispatch]);
 
   return (
     <Router>
