@@ -1,51 +1,25 @@
-import { Typography } from "@mui/material";
-import React, { useState } from "react";
-import { useAppDispatch } from "../../app/hooks";
-import { updateUser } from "../../slices/userSlice";
+import { Button, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { getProfileInfo, updateUser } from "../../slices/userSlice";
 import "./Panel.css";
 
-interface SkillsProps {
-  image1: string | null | ArrayBuffer;
-  image2: string | null | ArrayBuffer;
-  image3: string | null | ArrayBuffer;
-  image4: string | null | ArrayBuffer;
-  image5: string | null | ArrayBuffer;
-  image6: string | null | ArrayBuffer;
-}
-
-interface AboutProps {
-  avatar: string | null | ArrayBuffer;
-  name: string;
-  title: string;
-  description: string;
-  quote: string;
-}
-
-const skillsInitialState: SkillsProps = {
-  image1: "",
-  image2: "",
-  image3: "",
-  image4: "",
-  image5: "",
-  image6: "",
-};
-
-const aboutInitialState: AboutProps = {
-  avatar: "",
-  name: "",
-  title: "",
-  description: "",
-  quote: "",
-};
-
 const Panel = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [skills, setSkills] = useState<SkillsProps>(skillsInitialState);
-  const [about, setAbout] = useState<AboutProps>(aboutInitialState);
-
   const dispatch = useAppDispatch();
+
+  const user = useAppSelector((state) => state.user);
+  const aboutUser = useAppSelector((state) => state.user.about);
+
+  const [name, setName] = useState<string>(user.name);
+  const [email, setEmail] = useState<string>(user.email);
+
+  const [password, setPassword] = useState<string>(user.password);
+  const [about, setAbout] = useState({
+    name: aboutUser.name,
+    title: aboutUser.title,
+    description: aboutUser.description,
+    quote: aboutUser.quote,
+  });
 
   const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -61,23 +35,12 @@ const Panel = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(updateUser());
-
-    console.log(name, email, password, skills, about);
+    dispatch(updateUser({ name, email, password, about }));
   };
 
-  const handleAboutImage = (e: any) => {
-    const file = e.target.files[0];
-    const Reader = new FileReader();
-
-    Reader.readAsDataURL(file);
-
-    Reader.onload = () => {
-      if (Reader.readyState === 2) {
-        setAbout({ ...about, avatar: Reader.result });
-      }
-    };
-  };
+  useEffect(() => {
+    dispatch(getProfileInfo());
+  }, [dispatch]);
 
   return (
     <div className="adminPanel">
@@ -112,7 +75,7 @@ const Panel = () => {
             className="adminPanelInputs"
           />
           <input
-            type="password"
+            type="text"
             placeholder="Password"
             value={password}
             onChange={handleChangePassword}
@@ -153,16 +116,11 @@ const Panel = () => {
                 onChange={(e) => setAbout({ ...about, quote: e.target.value })}
                 className="adminPanelInputs"
               />
-
-              <input
-                type="file"
-                onChange={handleAboutImage}
-                className="adminPanelFileUpload"
-                placeholder="Choose Avatar"
-                accept="image/*"
-              />
             </fieldset>
           </div>
+          <Button type="submit" variant="contained">
+            Update
+          </Button>
         </form>
       </div>
     </div>

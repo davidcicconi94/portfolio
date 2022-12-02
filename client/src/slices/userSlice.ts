@@ -3,7 +3,7 @@ import axios from "axios";
 
 export interface UserState {
   status: string;
-  name: string | null;
+  name: string;
   email: string;
   password: string;
   projects: Array<any>;
@@ -42,15 +42,23 @@ export const loadUser = createAsyncThunk("user/load", async (thunAPI) => {
   }
 });
 
-export const updateUser = createAsyncThunk("user/update", async () => {
-  try {
-    const { data } = await axios.put("http://localhost:3001/admin/update", {});
-    console.log(data);
-    return data;
-  } catch (error) {
-    return error;
+export const updateUser = createAsyncThunk(
+  "user/update",
+  async ({ name, email, password, about }: any) => {
+    try {
+      const { data } = await axios.put("http://localhost:3001/admin/update", {
+        name,
+        email,
+        password,
+        about,
+      });
+      console.log(data.message);
+      return data.message;
+    } catch (error) {
+      return error;
+    }
   }
-});
+);
 
 const userSlice = createSlice({
   name: "user",
@@ -62,6 +70,7 @@ const userSlice = createSlice({
         state.status = "success";
         state.about = action.payload.about;
         state.projects = action.payload.projects;
+        state.name = action.payload.name;
       })
       .addCase(getProfileInfo.pending, (state, action) => {
         state.status = "pending";
@@ -72,8 +81,10 @@ const userSlice = createSlice({
       .addCase(loadUser.fulfilled, (state, action) => {
         state.status = "success";
         state.email = action.payload.email;
-        state.name = action.payload.about.name;
+        state.name = action.payload.name;
         state.password = action.payload.password;
+        state.projects = action.payload.projects;
+        state.about = action.payload.about;
       })
       .addCase(loadUser.pending, (state, action) => {
         state.status = "pending";
