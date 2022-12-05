@@ -1,0 +1,56 @@
+.container {
+    width: 40%;
+    padding: 30px;
+    border: 2px solid black;
+    margin: 170px auto;
+    background-color: rgb(233, 233, 233);
+
+}
+
+form {
+    display: grid;
+}
+
+form h4 { 
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+label {
+    padding: 15px;
+}
+
+input {
+    padding: 1vmax ;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font: 100 1rem "Roboto", sans-serif;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.buttonsContainer {
+    width: 100%;
+    margin: 50px auto ;
+}
+
+textarea {
+    resize: none;
+    border-radius: 10px;
+    font: 100 1rem "Roboto", sans-serif;
+    box-sizing: border-box;
+    padding: 1vmax;
+}
+
+form > .buttonsContainer button:hover {
+    background-color: hsl(0, 0%, 15%);
+  }
+
+  .buttonsContainer button {
+    width: 100%;
+    padding: 1vmax;
+    margin-bottom: 2vmax;
+    background-color: hsl(219, 48%, 8%);
+    letter-spacing: 3px;
+  }

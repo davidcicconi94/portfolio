@@ -15,10 +15,9 @@ const Login = () => {
   const [email, setEmail] = useState<any>("");
   const [password, setPassword] = useState<any>("");
   const dispatch = useAppDispatch();
-  const { isAuthenticated, loading, message, error } = useAppSelector(
+  const { isAuthenticated, loading, error } = useAppSelector(
     (state) => state.auth
   );
-  const { name } = useAppSelector((state) => state.user);
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -32,6 +31,7 @@ const Login = () => {
     e.preventDefault();
 
     dispatch(login({ email, password }));
+    dispatch(getProfileInfo());
   };
 
   useEffect(() => {

@@ -1,11 +1,18 @@
 import { Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { getProfileInfo, updateUser } from "../../slices/userSlice";
+import { loadUser, updateUser } from "../../slices/userSlice";
 import "./Panel.css";
 
 const Panel = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
 
   const user = useAppSelector((state) => state.user);
   const aboutUser = useAppSelector((state) => state.user.about);
@@ -35,12 +42,15 @@ const Panel = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "User updated!",
+      showConfirmButton: false,
+      timer: 1500,
+    });
     dispatch(updateUser({ name, email, password, about }));
   };
-
-  useEffect(() => {
-    dispatch(getProfileInfo());
-  }, [dispatch]);
 
   return (
     <div className="adminPanel">
@@ -120,6 +130,13 @@ const Panel = () => {
           </div>
           <Button type="submit" variant="contained">
             Update
+          </Button>
+          <Button
+            onClick={() => navigate("/new/project")}
+            style={{ backgroundColor: "#ac0404" }}
+            variant="contained"
+          >
+            Add Projects
           </Button>
         </form>
       </div>

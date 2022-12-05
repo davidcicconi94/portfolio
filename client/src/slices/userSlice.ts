@@ -15,6 +15,14 @@ export interface UserState {
   };
 }
 
+export interface ProjectProps {
+  title: string;
+  url: string;
+  image: string;
+  description?: string;
+  techStack: string;
+}
+
 const initialState: UserState = {
   status: "",
   name: "",
@@ -60,6 +68,22 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+export const addProject = createAsyncThunk(
+  "add/project",
+  async ({ title, url, image, description, techStack }: ProjectProps) => {
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3001/admin/project/add",
+        { title, url, image, description, techStack }
+      );
+      console.log(data);
+      return data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -71,6 +95,7 @@ const userSlice = createSlice({
         state.about = action.payload.about;
         state.projects = action.payload.projects;
         state.name = action.payload.name;
+        state.password = action.payload.password;
       })
       .addCase(getProfileInfo.pending, (state, action) => {
         state.status = "pending";
@@ -92,7 +117,6 @@ const userSlice = createSlice({
       })
       .addCase(loadUser.rejected, (state, action) => {
         state.status = "rejected";
-        state.email = "";
       });
   },
 });

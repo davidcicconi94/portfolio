@@ -1,42 +1,40 @@
 import React from "react";
-import { useForm, Resolver } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import "./Project.css";
+import { Button, Typography } from "@mui/material";
 
-type FormValues = {
-  firstName: string;
-  lastName: string;
-};
-
-const resolver: Resolver<FormValues> = async (values) => {
-  return {
-    values: values.firstName ? values : {},
-    errors: !values.firstName
-      ? {
-          firstName: {
-            type: "required",
-            message: "This is required.",
-          },
-        }
-      : {},
-  };
-};
 const Project = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>({ resolver });
-  const onSubmit = handleSubmit((data) => console.log(data));
-
+  const navigate = useNavigate();
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <input {...register("firstName")} placeholder="Bill" />
-        {errors?.firstName && <p>{errors.firstName.message}</p>}
+      <div className="container">
+        <form>
+          <Typography variant="h4">Add a new project:</Typography>
+          <label>Title:</label>
+          <input type="text" />
 
-        <input {...register("lastName")} placeholder="Luo" />
+          <label>URL:</label>
+          <input type="text" />
 
-        <input type="submit" />
-      </form>
+          <label>Image:</label>
+          <input type="text" />
+
+          <label>Description: </label>
+          <textarea name="description" cols={30} rows={10}></textarea>
+
+          <label>Technologies:</label>
+          <input type="text" />
+
+          <div className="buttonsContainer">
+            <Button type="submit" variant="contained">
+              Add project
+            </Button>
+            <Button variant="contained" onClick={() => navigate(-1)}>
+              Back
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

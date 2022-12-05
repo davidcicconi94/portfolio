@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import About from "./components/About/About";
 import Panel from "./components/Admin/Panel";
+import Project from "./components/Admin/Project";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
@@ -33,6 +34,7 @@ const App: React.FC = () => {
           path="/account"
           element={isAuthenticated ? <Panel /> : <Login />}
         />
+        <Route path="/new/project" element={<Project />} />
       </Routes>
       <Footer />
     </Router>
