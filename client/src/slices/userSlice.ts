@@ -18,7 +18,7 @@ export interface UserState {
 export interface ProjectProps {
   title: string;
   url: string;
-  image: string;
+  image: string | ArrayBuffer | null;
   description?: string;
   techStack: string;
 }
