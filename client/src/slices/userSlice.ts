@@ -76,8 +76,8 @@ export const addProject = createAsyncThunk(
         "http://localhost:3001/admin/project/add",
         { title, url, image, description, techStack }
       );
-      console.log(data);
-      return data;
+      console.log(data.projects);
+      return data.projects;
     } catch (error) {
       return error;
     }
@@ -117,6 +117,9 @@ const userSlice = createSlice({
       })
       .addCase(loadUser.rejected, (state, action) => {
         state.status = "rejected";
+      })
+      .addCase(addProject.fulfilled, (state, action) => {
+        state.projects = action.payload;
       });
   },
 });

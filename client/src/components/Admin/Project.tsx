@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Project.css";
 import { Button, Typography } from "@mui/material";
 import { useAppDispatch } from "../../app/hooks";
-import { addProject } from "../../slices/userSlice";
+import { addProject, getProfileInfo, loadUser } from "../../slices/userSlice";
 
 type ProjectProps = {
   title: string;
@@ -41,6 +41,7 @@ const Project = () => {
     await dispatch(addProject({ title, url, description, image, techStack }));
 
     //Hay que obtener usuario
+    dispatch(loadUser());
   };
 
   return (
